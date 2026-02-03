@@ -1,227 +1,320 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Personality Meter</title>
 
 <style>
+*{box-sizing:border-box;font-family:Arial}
 
-/* ========= GLOBAL FIX ========= */
-*{
-  box-sizing:border-box;
-}
-
-
-/* ========= BODY ========= */
 body{
   margin:0;
-  padding:15px; /* overflow fix */
-  font-family:Arial, sans-serif;
-  background:linear-gradient(135deg,#ff6a00,#ffb347,#6a11cb,#2575fc);
-  background-size:400% 400%;
-  animation:bg 10s infinite alternate;
+  padding:15px;
   display:flex;
   justify-content:center;
   align-items:center;
   min-height:100vh;
+  background:linear-gradient(135deg,#ff6a00,#ffb347,#6a11cb,#2575fc);
+  background-size:400% 400%;
+  animation:bg 8s infinite alternate;
 }
+@keyframes bg{0%{background-position:left}100%{background-position:right}}
 
-@keyframes bg{
-  0%{background-position:left;}
-  100%{background-position:right;}
-}
-
-
-/* ========= INTRO ========= */
 #intro{
-  position:fixed;
-  inset:0;
-  background:linear-gradient(135deg,#ff5722,#ff9800);
+  position:fixed;inset:0;
+  background:#ff5722;
+  color:white;
   display:flex;
   justify-content:center;
   align-items:center;
   flex-direction:column;
-  color:white;
-  z-index:9999;
+  font-size:28px;
+  font-weight:bold;
+  z-index:999;
 }
 
-
-/* ========= CARD ========= */
-.box{
+.card{
   width:100%;
-  max-width:400px;  /* safe width */
-  background:white;
+  max-width:400px;
+  background:#fff;
   padding:18px;
-  border-radius:18px;
-  text-align:center;
-  box-shadow:0 10px 30px rgba(0,0,0,0.35);
+  border-radius:20px;
+  box-shadow:0 12px 30px rgba(0,0,0,.35);
+  animation:pop .5s ease;
 }
+@keyframes pop{from{transform:scale(.8)}to{transform:scale(1)}}
 
+h2{margin:0}
+.sub{font-size:13px;color:#555;margin-bottom:10px}
 
-/* ========= TEXT ========= */
-h2{margin:5px;}
-
-.sub{
-  font-size:13px;
-  color:#555;
-}
-
-
-/* ========= INPUT ========= */
 input{
   width:100%;
   padding:12px;
+  margin:6px 0;
   border-radius:12px;
   border:2px solid #ff9800;
-  font-size:15px;
   outline:none;
-  background:#fffdf5;
-  transition:0.3s;
+  transition:.3s;
 }
-
-/* only glow (no zoom to avoid overflow) */
 input:focus{
-  border-color:#ff5722;
   box-shadow:0 0 10px #ff5722;
+  transform:scale(1.03);
 }
 
-
-/* ========= BUTTON ========= */
 button{
   width:100%;
-  padding:12px;
-  margin-top:10px;
-  border-radius:10px;
+  padding:11px;
   border:none;
+  border-radius:12px;
   background:#ff5722;
   color:white;
   font-weight:bold;
+  margin-top:6px;
+  cursor:pointer;
 }
 
-
-/* ========= RESULT ========= */
 .result{
-  background:#f7f7f7;
-  padding:12px;
-  border-radius:12px;
-  text-align:left;
-  font-size:14px;
   margin-top:12px;
+  padding:12px;
+  background:#f7f7f7;
+  border-radius:12px;
+  font-size:14px;
 }
 
-.bar{
-  height:9px;
-  background:#ddd;
-  border-radius:6px;
-  margin-bottom:10px;
+.bar{height:8px;background:#ddd;border-radius:5px;margin-bottom:8px}
+.fill{height:100%;border-radius:5px}
+
+.c1{background:#4caf50}
+.c2{background:#f44336}
+.c3{background:#3f51b5}
+.c4{background:#e91e63}
+.c5{background:#ff9800}
+.c6{background:#009688}
+
+.share{display:none;gap:5px}
+.small{flex:1;background:#2196f3}
+
+.love{
+  margin-top:18px;
+  padding:10px;
+  background:#fff3f3;
+  border-radius:12px;
 }
 
-.fill{
-  height:100%;
-  border-radius:6px;
+.task{
+  margin-top:10px;
+  background:#fff8e1;
+  padding:10px;
+  border-radius:10px;
+  font-weight:bold;
+  color:#ff5722;
 }
-
-/* colors */
-.c1{background:#4caf50;}
-.c2{background:#f44336;}
-.c3{background:#3f51b5;}
-.c4{background:#e91e63;}
-.c5{background:#ff9800;}
-.c6{background:#009688;}
-
-
-/* ========= SHARE ========= */
-.share{
-  display:none;
-  gap:5px;
-  margin-top:8px;
-}
-
-.small{
-  flex:1;
-  background:#2196f3;
-  color:white;
-}
-
 </style>
 </head>
 
-
-
 <body>
 
-<!-- INTRO -->
+<!-- Intro -->
 <div id="intro">
-  <h1>🔥 BCA BOYS 🔥</h1>
-  <p>😎 Coding + Masti Mode ON 😂</p>
+🔥 BCA BOYS 🔥
+<div style="font-size:16px">Loading Game 🎮</div>
 </div>
 
-
-
-<div class="box">
+<div class="card">
 
 <h2>😄 Personality Meter</h2>
-<div class="sub">🎮 Just For Fun – Serious Mat Lena 😂</div>
+<div class="sub">🎮 Play With Friends • Just For Fun 😂</div>
 
-<div style="font-weight:bold;margin-top:10px;">📝 Apna Naam Likho</div>
-
-<input id="name" placeholder="👉 Yaha naam likho...">
-
+<input id="name" placeholder="👉 Apna naam likho">
 <button onclick="check()">✨ Result Dekho</button>
 
-<div id="result" class="result">
-Yaha tumhara result dikhega 😊
-</div>
+<div id="result" class="result">Result yaha dikhega 😊</div>
 
 <div class="share" id="shareBtns">
   <button class="small" onclick="copyText()">📋 Copy</button>
   <button class="small" onclick="shareWhatsApp()">📤 WhatsApp</button>
 </div>
 
+<!-- Love Match -->
+<div class="love">
+<h3>❤️ Love Match</h3>
+<input id="love1" placeholder="😎 Apna naam">
+<input id="love2" placeholder="💖 Crush ka naam">
+<button onclick="loveMatch()">💘 Match Check</button>
+<div id="loveResult"></div>
 </div>
 
-
+</div>
 
 <script>
 
-/* intro hide */
-setTimeout(()=>intro.style.display="none",2000);
+/* intro */
+setTimeout(()=>intro.style.display="none",1800)
 
-
-/* logic */
-function hash(name){
-  let h=0;
-  for(let i=0;i<name.length;i++){
-    h=(h<<5)-h+name.charCodeAt(i);
-    h|=0;
-  }
-  return Math.abs(h);
+/* sound */
+const ctx=new(window.AudioContext||window.webkitAudioContext)();
+function beep(type="click"){
+ const o=ctx.createOscillator(),g=ctx.createGain();
+ o.connect(g);g.connect(ctx.destination);
+ o.frequency.value=(type==="click")?600:900;
+ g.gain.setValueAtTime(.2,ctx.currentTime);
+ g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.15);
+ o.start();o.stop(ctx.currentTime+.15);
 }
 
-function percent(s,m){
-  return (Math.sin(s*m)*10000%100+100)%100|0;
-}
+/* hash */
+function hash(s){let h=0;for(let c of s)h=(h<<5)-h+c.charCodeAt(0);return Math.abs(h)}
+function percent(s,m){return (Math.sin(s*m)*10000%100+100)%100|0}
+function row(l,v,c){return `${l}: ${v}%<div class="bar"><div class="fill ${c}" style="width:${v}%"></div></div>`}
 
-function row(label,val,color){
-  return `
-${label}: ${val}%
-<div class="bar"><div class="fill ${color}" style="width:${val}%"></div></div>`;
-}
+/* 120 random funny tasks */
+const tasks=[
+"😄 2 logon ko smile do – Bas unki taraf dekh ke pyari si smile karo",
+"👋 Kisi ko hi bolo – Seedha jaake confidence se ‘Hi’ bol do",
+"😂 5 sec fake laugh karo – Jor se nakli hasi haso",
+"📸 Funny selfie lo – Ajeeb sa funny face bana ke photo lo",
+"🕺 10 sec dance karo – Chhota sa step bhi chalega",
+"🎤 Song ki 1 line gao – Dheere awaaz me bhi gaa sakte ho",
+"💬 Compliment do – Jaise ‘Nice shoes’ ya ‘Good dress’ bolo",
+"🤳 Group selfie lo – 2-3 logon ko bula ke photo lo",
+"😜 Tongue out face banao – Jeebh bahar nikaal ke funny face karo",
+"🧢 Cap ulta pehen pose lo – Topi ulta pehen ke style dikhao",
 
+"🕶️ Hero walk karo – Dheere dheere filmy style me chalo",
+"📢 Apna naam funny bolo – DJ ya robot style me bolo",
+"🎯 Ek joke sunao – Chhota sa mazaak suna do",
+"🍫 Chocolate offer karo – Kisi ko share karne ka acting karo",
+"🖐️ High five karo – Friend ke saath haath takrao",
+"👯 Best friend ko hug do – Pyara sa friendly hug do",
+"🤣 8 sec nonstop smile – 8 second tak daant dikha ke smile karo",
+"📱 Mirror selfie lo – Sheeshe ke saamne photo lo",
+"🎮 Stone paper game khelo – Kisi ke saath rock-paper-scissors khelo",
+"💌 Funny message bhejo – Kisi dost ko emoji wala msg karo",
+
+"🏃 12 step funny walk – Cartoon jaisa chalne ka acting karo",
+"😎 Cool pose lo – Seedha khade ho ke stylish pose do",
+"📷 3 funny poses – Jaldi jaldi teen alag pose banao",
+"🌟 Positive line bolo – Jaise ‘You can do it’ bolo",
+"🎧 Lipsync karo – Gaana bina awaaz ke lips hila ke karo",
+"🍔 Snack share act – Khane ka offer karne ka acting karo",
+"🗣️ Tongue twister bolo – ‘Kaccha papad pakka papad’ bolo",
+"🥳 Crazy face banao – Over funny face banao",
+"😉 Wink karo – Ek aankh band karke signal do",
+"👋 3 logon ko bye bolo – Haath hila ke bye karo",
+
+"💪 5 pushup acting – Pushup karne ka nakli acting karo",
+"🏀 Ball bounce act – Hawa me ball uchhalne ka acting karo",
+"⚽ Kick pose dikhao – Football kick jaisa pose banao",
+"🎈 Balloon pakadne ka act – Upar dekh ke balloon pakdo jaisa acting",
+"🎁 Gift dene ka act – Smile ke saath gift dene ka acting",
+"🎊 Clap dance karo – Taali bajate hue dance karo",
+"☂️ Umbrella open pose – Chhata kholne jaisa pose banao",
+"🌞 Sun ko greet karo – Upar dekh ke ‘Hello Sun’ bolo",
+"🌙 Moon dekh pose – Chand dekhne jaisa upar dekho",
+"⭐ Star point pose – Finger se upar star dikhane jaisa pose",
+
+"🔥 Fast dance 5 sec – 5 second tak fast dance karo",
+"🌳 Tree hug pose – Ped ko hug karne jaisa acting",
+"🍌 Banana dance – Funny side to side dance",
+"🥔 Potato slow walk – Bahut dheere funny walk karo",
+"🧙 Magic pose – Jaadu karne jaisa haath ghumao",
+"🧟 Zombie walk – Zombie jaisa seedha haath karke chalo",
+"🧚 Fairy dance – Halki halki fairy jaisi dance",
+"👻 Ghost walk – Bhoot jaisa ‘Bhoo’ bolte hue chalo",
+"🤡 Clown face – Joker jaisa funny muh banao",
+"🚶 Slow motion walk – Bahut slow filmy walk karo",
+
+"🤸 Jump pose – Chhota sa jump karke pose do",
+"🧘 Yoga funny pose – Balance banane ki funny koshish karo",
+"🎸 Guitar play act – Hawa me guitar bajane ka acting",
+"🥁 Drum beat act – Table ya hawa me drum bajao jaisa karo",
+"🎤 Singer pose – Mic pakadne jaisa pose banao",
+"📺 Reporter act – News reporter ban ke 2 line bolo",
+"😲 Surprise face – Aankhen badi karke shock face",
+"😍 Heart pose – Haath se dil ka shape banao",
+"🤔 Thinking pose – Thodi par haath rakh ke sochne ka pose",
+"🙈 Shy pose – Face chhupa ke sharmane ka acting",
+
+"🐶 Dog sound act – ‘Bhau bhau’ bolo",
+"🐱 Cat walk – Billi jaisa smooth chalo",
+"🐸 Frog jump – Do baar mendak jaisa jump",
+"🦁 Lion roar – Sher jaisa ‘Roar’ karo",
+"🐰 Bunny jump – Chhota cute jump karo",
+"🦋 Butterfly hands – Titli jaisa haath hilao",
+"🍕 Pizza bite act – Pizza khane ka acting karo",
+"☕ Coffee sip act – Garam coffee peene jaisa acting",
+"📱 Phone hello act – Phone pe ‘Hello ji’ bolo",
+"✈️ Plane fly pose – Dono haath phaila ke plane bano",
+
+"🚗 Car drive act – Steering ghumane jaisa acting",
+"🚌 Bus conductor act – ‘Ticket ticket’ bolo",
+"🚆 Train sound act – ‘Chuk chuk’ awaaz karo",
+"🚢 Ship sail pose – Door dekhne jaisa pose",
+"🚁 Helicopter spin – Haath ghumate hue ghoomo",
+"🚀 Rocket launch pose – 3-2-1 bolke jump",
+"🛸 Alien walk – Ajeeb style me chalo",
+"🛰️ Satellite pose – Gol gol ghoomne ka acting",
+"🛞 Wheel spin act – Haath se tyre ghumao jaisa",
+"⛽ Fuel fill act – Petrol bharne ka acting",
+
+"🎉 Party jump – Dono haath upar karke jump",
+"🎇 Firework pose – Boom bolke pose do",
+"🎆 Sparkle act – Ungli se chamak dikhane jaisa",
+"🎀 Ribbon tie act – Gift ribbon baandhne jaisa",
+"🪅 Piñata hit act – Danda chalane jaisa acting",
+"🥁 Parade walk – Seedha chest out karke walk",
+"🎺 Band pose – Instrument bajane jaisa",
+"🎭 Drama face – Over emotional face",
+"🎪 Circus act – Balance banane ka acting",
+"🎟️ Ticket check act – Entry check karne jaisa",
+
+"📚 Book read act – Kitaab padhne jaisa acting",
+"✏️ Air drawing – Hawa me drawing banao",
+"🖍️ Doodle act – Finger se drawing acting",
+"📓 Diary write act – Secret likhne jaisa",
+"🧠 Genius pose – Head par finger rakh ke smart pose",
+"😴 Fake sleep – Aankh band karke sone ka acting",
+"😡 Angry face – Gussa wala face banao",
+"😇 Innocent pose – Seedha simple cute face",
+"😏 Attitude pose – Side look deke attitude",
+"😬 Awkward smile – Tight funny smile",
+
+"🙉 Ears cover pose – Dono kaan band karo",
+"🙊 Silent pose – Lips band karke chup raho",
+"🐼 Panda walk – Aalas bhari slow walk",
+"🐯 Tiger walk – Strong style me chalo",
+"🐧 Penguin walk – Side side funny walk",
+"🐢 Turtle slow walk – Bahut hi dheere chalo",
+"🐍 Snake move – Body wave jaisa move",
+"🐙 Octopus hands – 8 haath jaisa hilao",
+"🐝 Bee sound – ‘Bzzz’ awaaz karo",
+"🕊️ Bird fly act – Pakshi jaisa haath hilao",
+
+"🍔 Burger bite act – Bada bite lene ka acting",
+"🍟 Fries share act – Fries offer karne jaisa",
+"🥤 Drink sip act – Straw se peene jaisa",
+"🍩 Donut face – Gol lips banao",
+"🍰 Cake cut act – Cake kaatne jaisa",
+"🍪 Cookie bite act – Crunch khane jaisa",
+"🍫 Chocolate smile – Meethi smile do",
+"🧃 Juice sip – Juice peene ka acting",
+"🥛 Milk moustache act – Upper lip pe doodh jaisa pose",
+"🍿 Popcorn toss – Upar popcorn fake throw"
+];
+while(tasks.length<120) tasks.push(tasks[tasks.length%12]);
+
+/* personality */
 function check(){
+ beep();
+ const name=document.getElementById("name").value.trim();
+ if(!name)return alert("Naam likho 😊");
 
-  const name=nameInput=document.getElementById("name").value.trim();
+ const s=hash(name);
 
-  if(!name){
-    alert("Pehle naam likho 😊");
-    return;
-  }
+ const randomTask=tasks[Math.floor(Math.random()*tasks.length)];
 
-  const s=hash(name);
-
-  result.innerHTML=`
+ result.innerHTML=`
 ✨ <b>${name}</b> ka Fun Meter ✨<br><br>
 ${row("😊 Happiness",percent(s,1.1),"c1")}
 ${row("😡 Angry",percent(s,1.7),"c2")}
@@ -229,18 +322,28 @@ ${row("🧠 IQ",percent(s,2.3),"c3")}
 ${row("❤️ Romantic",percent(s,2.9),"c4")}
 ${row("😎 Attitude",percent(s,3.7),"c5")}
 ${row("🎨 Creative",percent(s,4.3),"c6")}
+<div class="task">🎯 Funny Task: 👉 ${randomTask}</div>
 `;
 
-  shareBtns.style.display="flex";
+ shareBtns.style.display="flex";
 }
 
+/* love match */
+function loveMatch(){
+ beep("success");
+ const a=love1.value.trim(),b=love2.value.trim();
+ if(!a||!b)return alert("Dono naam likho 😄");
+ const score=(hash(a+b)%101);
+ loveResult.innerText=`${a} ❤️ ${b} = ${score}% 😍`;
+}
+
+/* share */
 function copyText(){
-  navigator.clipboard.writeText(result.innerText);
-  alert("Copy ho gaya ✅");
+ navigator.clipboard.writeText(result.innerText);
+ alert("Copy ho gaya ✅");
 }
-
 function shareWhatsApp(){
-  window.open("https://wa.me/?text="+encodeURIComponent(result.innerText));
+ window.open("https://wa.me/?text="+encodeURIComponent(result.innerText));
 }
 
 </script>
