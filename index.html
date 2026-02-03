@@ -1,138 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Personality Meter</title>
 
 <style>
 
-/* ================= INTRO ================= */
-#intro{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100vh;
-  background:linear-gradient(135deg,#ff5722,#ff9800);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  flex-direction:column;
-  color:white;
-  font-weight:bold;
-  z-index:9999;
-}
-
-#intro h1{
-  font-size:42px;
-  margin:0;
-}
-
-#intro p{
-  margin-top:8px;
+/* ========= GLOBAL FIX ========= */
+*{
+  box-sizing:border-box;
 }
 
 
-/* ================= BODY ================= */
+/* ========= BODY ========= */
 body{
   margin:0;
-  font-family: Arial, sans-serif;
-  background:linear-gradient(135deg,#ff9a9e,#a1c4fd,#c2ffd8);
+  padding:15px; /* overflow fix */
+  font-family:Arial, sans-serif;
+  background:linear-gradient(135deg,#ff6a00,#ffb347,#6a11cb,#2575fc);
+  background-size:400% 400%;
+  animation:bg 10s infinite alternate;
   display:flex;
   justify-content:center;
   align-items:center;
   min-height:100vh;
 }
 
+@keyframes bg{
+  0%{background-position:left;}
+  100%{background-position:right;}
+}
 
-/* ================= CARD ================= */
+
+/* ========= INTRO ========= */
+#intro{
+  position:fixed;
+  inset:0;
+  background:linear-gradient(135deg,#ff5722,#ff9800);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  color:white;
+  z-index:9999;
+}
+
+
+/* ========= CARD ========= */
 .box{
-  width:95%;
-  max-width:420px;
+  width:100%;
+  max-width:400px;  /* safe width */
   background:white;
-  padding:20px;
-  border-radius:16px;
+  padding:18px;
+  border-radius:18px;
   text-align:center;
-  box-shadow:0 8px 25px rgba(0,0,0,0.25);
+  box-shadow:0 10px 30px rgba(0,0,0,0.35);
 }
 
-h2{
-  margin:5px 0 10px;
-}
+
+/* ========= TEXT ========= */
+h2{margin:5px;}
 
 .sub{
   font-size:13px;
-  color:#666;
+  color:#555;
 }
 
 
-/* ================= INPUTS ================= */
-input,button{
+/* ========= INPUT ========= */
+input{
   width:100%;
   padding:12px;
-  margin:8px 0;
-  border-radius:8px;
-  border:none;
+  border-radius:12px;
+  border:2px solid #ff9800;
   font-size:15px;
+  outline:none;
+  background:#fffdf5;
+  transition:0.3s;
 }
 
+/* only glow (no zoom to avoid overflow) */
+input:focus{
+  border-color:#ff5722;
+  box-shadow:0 0 10px #ff5722;
+}
+
+
+/* ========= BUTTON ========= */
 button{
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  border-radius:10px;
+  border:none;
   background:#ff5722;
   color:white;
   font-weight:bold;
-  cursor:pointer;
-}
-
-button:active{
-  transform:scale(0.97);
 }
 
 
-/* ================= RESULT ================= */
+/* ========= RESULT ========= */
 .result{
-  margin-top:12px;
-  background:#f5f5f5;
+  background:#f7f7f7;
   padding:12px;
-  border-radius:10px;
-  font-size:14px;
+  border-radius:12px;
   text-align:left;
+  font-size:14px;
+  margin-top:12px;
 }
 
 .bar{
-  height:8px;
+  height:9px;
   background:#ddd;
-  border-radius:5px;
-  margin:4px 0 10px;
+  border-radius:6px;
+  margin-bottom:10px;
 }
 
 .fill{
   height:100%;
-  background:#4caf50;
-  border-radius:5px;
+  border-radius:6px;
 }
 
+/* colors */
+.c1{background:#4caf50;}
+.c2{background:#f44336;}
+.c3{background:#3f51b5;}
+.c4{background:#e91e63;}
+.c5{background:#ff9800;}
+.c6{background:#009688;}
 
-/* ================= SHARE ================= */
+
+/* ========= SHARE ========= */
 .share{
   display:none;
+  gap:5px;
   margin-top:8px;
-  justify-content:space-between;
 }
 
 .small{
-  width:48%;
+  flex:1;
   background:#2196f3;
+  color:white;
 }
 
 </style>
 </head>
 
 
+
 <body>
 
-<!-- ========= INTRO SCREEN ========= -->
+<!-- INTRO -->
 <div id="intro">
   <h1>🔥 BCA BOYS 🔥</h1>
   <p>😎 Coding + Masti Mode ON 😂</p>
@@ -140,13 +160,14 @@ button:active{
 
 
 
-<!-- ========= MAIN APP ========= -->
 <div class="box">
 
 <h2>😄 Personality Meter</h2>
 <div class="sub">🎮 Just For Fun – Serious Mat Lena 😂</div>
 
-<input id="name" placeholder="👉 Apna naam likho">
+<div style="font-weight:bold;margin-top:10px;">📝 Apna Naam Likho</div>
+
+<input id="name" placeholder="👉 Yaha naam likho...">
 
 <button onclick="check()">✨ Result Dekho</button>
 
@@ -165,81 +186,61 @@ Yaha tumhara result dikhega 😊
 
 <script>
 
-/* ========= INTRO HIDE ========= */
-setTimeout(()=>{
-  document.getElementById("intro").style.display="none";
-},2000);
+/* intro hide */
+setTimeout(()=>intro.style.display="none",2000);
 
 
-
-/* ========= LOGIC ========= */
-
-// same naam = same result
-function seed(name){
-  let sum=0;
-  for(let c of name){
-    sum+=c.charCodeAt(0);
+/* logic */
+function hash(name){
+  let h=0;
+  for(let i=0;i<name.length;i++){
+    h=(h<<5)-h+name.charCodeAt(i);
+    h|=0;
   }
-  return sum;
+  return Math.abs(h);
 }
 
-// percent generate
-function percent(s,a){
-  return (s+a)%101;
+function percent(s,m){
+  return (Math.sin(s*m)*10000%100+100)%100|0;
 }
 
-// progress bar row
-function row(label,val){
+function row(label,val,color){
   return `
 ${label}: ${val}%
-<div class="bar">
-  <div class="fill" style="width:${val}%"></div>
-</div>`;
+<div class="bar"><div class="fill ${color}" style="width:${val}%"></div></div>`;
 }
 
-
-// main function
 function check(){
 
-  const name=document.getElementById("name").value.trim();
+  const name=nameInput=document.getElementById("name").value.trim();
 
   if(!name){
     alert("Pehle naam likho 😊");
     return;
   }
 
-  const s=seed(name);
+  const s=hash(name);
 
-  let html=`✨ <b>${name}</b> ka Fun Meter ✨<br><br>`;
+  result.innerHTML=`
+✨ <b>${name}</b> ka Fun Meter ✨<br><br>
+${row("😊 Happiness",percent(s,1.1),"c1")}
+${row("😡 Angry",percent(s,1.7),"c2")}
+${row("🧠 IQ",percent(s,2.3),"c3")}
+${row("❤️ Romantic",percent(s,2.9),"c4")}
+${row("😎 Attitude",percent(s,3.7),"c5")}
+${row("🎨 Creative",percent(s,4.3),"c6")}
+`;
 
-  html+=row("😊 Happiness",percent(s,5));
-  html+=row("😡 Angry",percent(s,20));
-  html+=row("🧠 IQ",percent(s,35));
-  html+=row("❤️ Romantic",percent(s,50));
-  html+=row("😎 Attitude",percent(s,65));
-  html+=row("🎨 Creative",percent(s,80));
-
-  document.getElementById("result").innerHTML=html;
-
-  document.getElementById("shareBtns").style.display="flex";
+  shareBtns.style.display="flex";
 }
 
-
-// copy
 function copyText(){
-  navigator.clipboard.writeText(
-    document.getElementById("result").innerText
-  );
+  navigator.clipboard.writeText(result.innerText);
   alert("Copy ho gaya ✅");
 }
 
-
-// whatsapp
 function shareWhatsApp(){
-  window.open(
-    "https://wa.me/?text="+
-    encodeURIComponent(document.getElementById("result").innerText)
-  );
+  window.open("https://wa.me/?text="+encodeURIComponent(result.innerText));
 }
 
 </script>
